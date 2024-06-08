@@ -1,7 +1,13 @@
 import AppRoutes from "./routes";
+import { FormCard, GlobalStyle } from "./styles/global";
 
 function App() {
-  return <AppRoutes />;
+  return (
+    <><FormCard></FormCard>
+      <GlobalStyle />
+      <AppRoutes />
+    </>
+  );
 }
 
 export default App;
