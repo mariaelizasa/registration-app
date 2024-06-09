@@ -1,5 +1,14 @@
 import Title from "../../components/Title/Title";
 import { useForm } from "react-hook-form";
+import {
+  FormContainer,
+  FormGroup,
+  Input,
+  InputRadio,
+  Label,
+  RadioGroup,
+} from "../../styles/Form/FormStyle";
+import NextButton from "../../components/Buttons/NextButton/NextButton";
 
 interface FormData {
   email: string;
@@ -16,30 +25,37 @@ function Home() {
   return (
     <>
       <Title name="Seja bem-vindo(a)!" />
-      <form onSubmit={handleSubmit(() => alert("teste"))}>
-        <p>Endereço de e-mail</p>
-        <input type="email" {...register("email", { required: true })} />
-        {errors.email && <span>Endereço de e-mail é obrigatório</span>}
-        <div>
-          <p>Selecione o tipo de cadastro:</p>
-          <label>
-            <input
-              type="radio"
-              value="PF"
-              {...register("type", { required: true })}
-            />
-            Pessoa Física
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="PJ"
-              {...register("type", { required: true })}
-            />
-            Pessoa Jurídica
-          </label>
-        </div>
-      </form>
+      <FormContainer>
+        <form onSubmit={handleSubmit(() => alert("teste"))}>
+          <FormGroup>
+            <p>Endereço de e-mail:</p>
+            <Input type="email" {...register("email", { required: true })} />
+            {errors.email && <span>Endereço de e-mail é obrigatório</span>}
+          </FormGroup>
+          <FormGroup>
+            <p>Selecione o tipo de cadastro:</p>
+            <RadioGroup>
+              <Label>
+                <InputRadio
+                  type="radio"
+                  value="PF"
+                  {...register("type", { required: true })}
+                />
+                Pessoa Física
+              </Label>
+              <Label>
+                <InputRadio
+                  type="radio"
+                  value="PJ"
+                  {...register("type", { required: true })}
+                />
+                Pessoa Jurídica
+              </Label>
+            </RadioGroup>
+          </FormGroup>
+        </form>
+        <NextButton size="normal" alone></NextButton>
+      </FormContainer>
     </>
   );
 }

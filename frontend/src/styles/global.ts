@@ -2,8 +2,8 @@ import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 
 const FormCard = styled.div`
-  width: 800px;
-  height: 800px;
+  width: 600px;
+  height: 700px;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 10px;
