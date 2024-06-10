@@ -39,6 +39,10 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
 
+  p {
+    font-weight: bold;
+  }
+
 
   button {
     cursor: pointer;

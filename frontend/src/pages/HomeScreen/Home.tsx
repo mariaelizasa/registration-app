@@ -36,7 +36,7 @@ function Home() {
     <>
       <FormContainer>
         <StepIndicator />
-        <Title name="Seja bem-vindo(a)!" />
+        <Title name="Seja bem-vindo(a)! 🌸" />
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <p>Endereço de e-mail:</p>

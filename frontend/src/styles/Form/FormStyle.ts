@@ -33,12 +33,19 @@ const Input = styled.input`
   margin-bottom: 5px;
 `;
 const InputRadio = styled.input`
- margin-right: 5px;
- 
+  margin-right: 5px;
 `;
 const Label = styled.label`
   margin-right: 10px;
- font-style: italic;
+  font-style: italic;
 `;
 
-export { Label, Input, RadioGroup, FormGroup, FormContainer, ButtonContainer, InputRadio };
+export {
+  Label,
+  Input,
+  RadioGroup,
+  FormGroup,
+  FormContainer,
+  ButtonContainer,
+  InputRadio,
+};
