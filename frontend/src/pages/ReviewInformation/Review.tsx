@@ -11,19 +11,15 @@ import {
 import { useMultiStepFormContext } from "../../context/MultiStepFormContext";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
 import NextButton from "../../components/Buttons/NextButton/NextButton";
+import { onSubmit } from "../../service/FormService";
 import { FormDataType } from "../../@types/FormDataType";
 
 function Review() {
   const { register, handleSubmit } = useForm<FormDataType>();
-
   const { formData, backStep } = useMultiStepFormContext();
 
   const prevStep = () => {
     backStep();
-  };
-
-  const onSubmit = (data: FormDataType) => {
-    console.log("data", data);
   };
 
   return (
