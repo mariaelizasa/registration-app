@@ -1,5 +1,11 @@
 import { Button } from "./style";
 
-const BackButton = () => <Button>Voltar</Button>;
+interface BackButtonProps {
+  onClick: () => void;
+}
+
+const BackButton = (props: BackButtonProps) => (
+  <Button onClick={props.onClick}>Voltar</Button>
+);
 
 export default BackButton;

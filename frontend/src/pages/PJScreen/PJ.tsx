@@ -8,6 +8,8 @@ import {
 } from "../../styles/Form/FormStyle";
 import NextButton from "../../components/Buttons/NextButton/NextButton";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
+import StepIndicator from "../../components/Step/Step";
+import { useMultiStepFormContext } from "../../context/MultiStepFormContext";
 
 interface FormData {
   socialReason: string;
@@ -17,17 +19,29 @@ interface FormData {
 }
 
 function PJ() {
+  const { nextStep, setFormValues, backStep } = useMultiStepFormContext();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
 
+  const onSubmit = (data: any) => {
+    setFormValues(data);
+    nextStep();
+  };
+
+  const prevStep = () => {
+    backStep();
+  };
+
   return (
     <>
       <FormContainer>
+        <StepIndicator />
         <Title name="Pessoa Jurídica" />
-        <form onSubmit={handleSubmit(() => alert("teste"))}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <p>Razão Social</p>
             <Input
@@ -76,9 +90,10 @@ function PJ() {
           </FormGroup>
         </form>
       </FormContainer>
+
       <ButtonContainer>
-        <BackButton></BackButton>
-        <NextButton size="small"></NextButton>
+        <BackButton onClick={prevStep}></BackButton>
+        <NextButton size="small" onClick={handleSubmit(onSubmit)}></NextButton>
       </ButtonContainer>
     </>
   );

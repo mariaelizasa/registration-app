@@ -1,5 +1,6 @@
 import Title from "../../components/Title/Title";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import {
   FormContainer,
   FormGroup,
@@ -9,6 +10,8 @@ import {
   RadioGroup,
 } from "../../styles/Form/FormStyle";
 import NextButton from "../../components/Buttons/NextButton/NextButton";
+import StepIndicator from "../../components/Step/Step";
+import { useMultiStepFormContext } from "../../context/MultiStepFormContext";
 
 interface FormData {
   email: string;
@@ -22,11 +25,19 @@ function Home() {
     formState: { errors },
   } = useForm<FormData>();
 
+  const { nextStep, setFormValues } = useMultiStepFormContext();
+
+  const onSubmit = (data: any) => {
+    setFormValues(data);
+    nextStep();
+  };
+
   return (
     <>
-      <Title name="Seja bem-vindo(a)!" />
       <FormContainer>
-        <form onSubmit={handleSubmit(() => alert("teste"))}>
+        <StepIndicator />
+        <Title name="Seja bem-vindo(a)!" />
+        <form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <p>Endereço de e-mail:</p>
             <Input type="email" {...register("email", { required: true })} />
@@ -54,7 +65,11 @@ function Home() {
             </RadioGroup>
           </FormGroup>
         </form>
-        <NextButton size="normal" alone></NextButton>
+        <NextButton
+          size="normal"
+          alone
+          onClick={handleSubmit(onSubmit)}
+        ></NextButton>
       </FormContainer>
     </>
   );
