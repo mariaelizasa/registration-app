@@ -1,8 +1,8 @@
-import { MultiStepFormContext } from "../../context/MultiStepFormContext";
+import { useMultiStepFormContext } from "../../context/MultiStepFormContext";
 import { StepNumber, StyledStepIndicator } from "./style";
 
 const StepIndicator = () => {
-  const { currentStep } = MultiStepFormContext();
+  const { currentStep } = useMultiStepFormContext();
 
   return (
     <StyledStepIndicator>

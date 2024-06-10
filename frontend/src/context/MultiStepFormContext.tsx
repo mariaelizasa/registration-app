@@ -10,8 +10,10 @@ export const MultiStepFormProvider = ({ children }) => {
 
   const nextStep = () => setCurrentStep((step) => step + 1);
   const backStep = () => setCurrentStep((step) => step - 1);
+
   const setFormValues = (values: Object) =>
     setFormData({ ...formData, ...values });
+
   return (
     <FormContext.Provider
       value={{

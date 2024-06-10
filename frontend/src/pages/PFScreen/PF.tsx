@@ -1,6 +1,11 @@
 import Title from "../../components/Title/Title";
 import { useForm } from "react-hook-form";
-import { ButtonContainer, FormContainer, FormGroup, Input } from "../../styles/Form/FormStyle";
+import {
+  ButtonContainer,
+  FormContainer,
+  FormGroup,
+  Input,
+} from "../../styles/Form/FormStyle";
 import NextButton from "../../components/Buttons/NextButton/NextButton";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
 import StepIndicator from "../../components/Step/Step";
@@ -30,11 +35,11 @@ function PF() {
   const prevStep = () => {
     backStep();
   };
-  
+
   return (
     <>
       <FormContainer>
-      <StepIndicator />
+        <StepIndicator />
         <Title name="Pessoa Física" />
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
@@ -82,11 +87,10 @@ function PF() {
           </FormGroup>
         </form>
       </FormContainer>
-       <ButtonContainer>
-      <BackButton onClick={prevStep}></BackButton>
-      <NextButton size="small" onClick={handleSubmit(onSubmit)}></NextButton>
+      <ButtonContainer>
+        <BackButton onClick={prevStep}></BackButton>
+        <NextButton size="small" onClick={handleSubmit(onSubmit)}></NextButton>
       </ButtonContainer>
-   
     </>
   );
 }
