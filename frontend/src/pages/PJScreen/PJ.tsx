@@ -10,24 +10,19 @@ import NextButton from "../../components/Buttons/NextButton/NextButton";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
 import StepIndicator from "../../components/Step/Step";
 import { useMultiStepFormContext } from "../../context/MultiStepFormContext";
+import { FormDataPJ } from "../../@types/FormDataType";
 
-interface FormData {
-  socialReason: string;
-  cnpj: string;
-  openingDate: Date;
-  telephone: number;
-}
 
 function PJ() {
-  const { nextStep, setFormValues, backStep } = useMultiStepFormContext();
+  const { nextStep, setFormValues, backStep, formData } = useMultiStepFormContext();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormDataPJ>();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FormDataPJ) => {
     setFormValues(data);
     nextStep();
   };
@@ -46,6 +41,7 @@ function PJ() {
             <p>Razão Social</p>
             <Input
               type="text"
+              defaultValue={formData.socialReason}
               {...register("socialReason", { required: true })}
             />
             {errors.socialReason && <span>A Razão Social é obrigatória</span>}
@@ -55,6 +51,7 @@ function PJ() {
             <p>CNPJ</p>
             <Input
               type="text"
+              defaultValue={formData.cnpj}
               {...register("cnpj", { required: true, pattern: /^[0-9]+$/ })}
             />
             {errors.cnpj && (
@@ -68,6 +65,7 @@ function PJ() {
             <p>Data de Abertura</p>
             <Input
               type="date"
+              defaultValue={formData.openingDate}
               {...register("openingDate", { required: true })}
             />
             {errors.openingDate && (
@@ -79,6 +77,7 @@ function PJ() {
             <p>Telefone</p>
             <Input
               type="text"
+              defaultValue={formData.telephone}
               {...register("telephone", {
                 required: true,
                 pattern: /^[0-9]+$/,
@@ -93,7 +92,7 @@ function PJ() {
 
       <ButtonContainer>
         <BackButton onClick={prevStep}></BackButton>
-        <NextButton size="small" onClick={handleSubmit(onSubmit)}></NextButton>
+        <NextButton size="small" onClick={handleSubmit(onSubmit)} title="Continuar"></NextButton>
       </ButtonContainer>
     </>
   );

@@ -10,21 +10,21 @@ import NextButton from "../../components/Buttons/NextButton/NextButton";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
 import StepIndicator from "../../components/Step/Step";
 import { useMultiStepFormContext } from "../../context/MultiStepFormContext";
+import { FormDataPassword } from "../../@types/FormDataType";
 
-interface FormData {
-  password: string;
-}
+
 
 function Password() {
-  const { nextStep, setFormValues, backStep } = useMultiStepFormContext();
+  const { nextStep, setFormValues, backStep, formData } =
+    useMultiStepFormContext();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormDataPassword>();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FormDataPassword) => {
     setFormValues(data);
     nextStep();
   };
@@ -43,6 +43,7 @@ function Password() {
             <Input
               type="password"
               {...register("password", { required: true })}
+              defaultValue={formData.password}
             />
             {errors.password && <span>A senha deve ser obrigatória</span>}
           </FormGroup>
@@ -51,7 +52,11 @@ function Password() {
 
       <ButtonContainer>
         <BackButton onClick={prevStep}></BackButton>
-        <NextButton size="small" onClick={handleSubmit(onSubmit)}></NextButton>
+        <NextButton
+          size="small"
+          onClick={handleSubmit(onSubmit)}
+          title="Continuar"
+        ></NextButton>
       </ButtonContainer>
     </>
   );

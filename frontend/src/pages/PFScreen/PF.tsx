@@ -10,24 +10,20 @@ import NextButton from "../../components/Buttons/NextButton/NextButton";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
 import StepIndicator from "../../components/Step/Step";
 import { useMultiStepFormContext } from "../../context/MultiStepFormContext";
+import { FormDataPF } from "../../@types/FormDataType";
 
-interface FormData {
-  name: string;
-  cpf: string;
-  dateOfBirth: string;
-  telephone: number;
-}
+
 
 function PF() {
-  const { nextStep, setFormValues, backStep } = useMultiStepFormContext();
+  const { nextStep, setFormValues, backStep, formData } = useMultiStepFormContext();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormDataPF>();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FormDataPF) => {
     setFormValues(data);
     nextStep();
   };
@@ -44,7 +40,8 @@ function PF() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <p>Nome</p>
-            <Input type="text" {...register("name", { required: true })} />
+            <Input type="text" {...register("name", { required: true })}
+              defaultValue={formData.name} />
             {errors.name && <span>O nome é obrigatório</span>}
           </FormGroup>
 
@@ -52,6 +49,7 @@ function PF() {
             <p>CPF</p>
             <Input
               type="text"
+              defaultValue={formData.cpf}
               {...register("cpf", { required: true, pattern: /^[0-9]+$/ })}
             />
             {errors.cpf && (
@@ -65,6 +63,7 @@ function PF() {
             <p>Data de Nascimento</p>
             <Input
               type="date"
+              defaultValue={formData.dateOfBirth}
               {...register("dateOfBirth", { required: true })}
             />
             {errors.dateOfBirth && (
@@ -76,6 +75,7 @@ function PF() {
             <p>Telefone</p>
             <Input
               type="text"
+              defaultValue={formData.telephone}
               {...register("telephone", {
                 required: true,
                 pattern: /^[0-9]+$/,
@@ -89,7 +89,7 @@ function PF() {
       </FormContainer>
       <ButtonContainer>
         <BackButton onClick={prevStep}></BackButton>
-        <NextButton size="small" onClick={handleSubmit(onSubmit)}></NextButton>
+        <NextButton size="small" onClick={handleSubmit(onSubmit)} title="Continuar"></NextButton>
       </ButtonContainer>
     </>
   );

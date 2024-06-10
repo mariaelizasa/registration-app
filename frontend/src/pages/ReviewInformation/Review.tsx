@@ -11,9 +11,10 @@ import {
 import { useMultiStepFormContext } from "../../context/MultiStepFormContext";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
 import NextButton from "../../components/Buttons/NextButton/NextButton";
+import { FormDataType } from "../../@types/FormDataType";
 
 function Review() {
-  const { register, handleSubmit } = useForm<FormData>();
+  const { register, handleSubmit } = useForm<FormDataType>();
 
   const { formData, backStep } = useMultiStepFormContext();
 
@@ -21,12 +22,25 @@ function Review() {
     backStep();
   };
 
+  const onSubmit = (data: FormDataType) => {
+    console.log("data", data);
+  };
+
   return (
     <>
       <FormContainer>
         <StepIndicator />
         <Title name="Revisão das Informações" />
-        <form onSubmit={() => alert("oi")}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormGroup>
+            <p>E-mail</p>
+            <Input
+              type="text"
+              defaultValue={formData.email}
+              {...register("email")}
+            />
+          </FormGroup>
+
           {formData.type === "PF" && (
             <>
               <FormGroup>
@@ -64,7 +78,7 @@ function Review() {
                 <p>Razão Social</p>
                 <Input
                   type="text"
-                  defaultValue={formData.name}
+                  defaultValue={formData.socialReason}
                   {...register("socialReason")}
                 />
               </FormGroup>
@@ -73,7 +87,7 @@ function Review() {
                 <p>CPNJ</p>
                 <Input
                   type="text"
-                  defaultValue={formData.cpf}
+                  defaultValue={formData.cnpj}
                   {...register("cnpj")}
                 />
               </FormGroup>
@@ -82,7 +96,7 @@ function Review() {
                 <p>Data de Abertura</p>
                 <Input
                   type="date"
-                  defaultValue={formData.dateOfBirth}
+                  defaultValue={formData.openingDate}
                   {...register("openingDate")}
                 />
               </FormGroup>
@@ -108,10 +122,13 @@ function Review() {
           </FormGroup>
         </form>
         <ButtonContainer>
-          <BackButton onClick={prevStep}>Voltar</BackButton>
-          <NextButton size="small" type="submit" onClick={() => alert("oi")}>
-            Salvar
-          </NextButton>
+          <BackButton onClick={prevStep} />
+          <NextButton
+            size="small"
+            title="Enviar"
+            type="submit"
+            onClick={handleSubmit(onSubmit)}
+          ></NextButton>
         </ButtonContainer>
       </FormContainer>
     </>

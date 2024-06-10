@@ -1,6 +1,5 @@
 import Title from "../../components/Title/Title";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import {
   FormContainer,
   FormGroup,
@@ -12,22 +11,20 @@ import {
 import NextButton from "../../components/Buttons/NextButton/NextButton";
 import StepIndicator from "../../components/Step/Step";
 import { useMultiStepFormContext } from "../../context/MultiStepFormContext";
+import { FormDataHome } from "../../@types/FormDataType";
 
-interface FormData {
-  email: string;
-  type: string;
-}
+
 
 function Home() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormDataHome>();
 
-  const { nextStep, setFormValues } = useMultiStepFormContext();
-
-  const onSubmit = (data: any) => {
+  const { nextStep, setFormValues, formData } = useMultiStepFormContext();
+  
+  const onSubmit = (data: FormDataHome) => {
     setFormValues(data);
     nextStep();
   };
@@ -40,7 +37,11 @@ function Home() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <p>Endereço de e-mail:</p>
-            <Input type="email" {...register("email", { required: true })} />
+            <Input
+              type="email"
+              defaultValue={formData.email}
+              {...register("email", { required: true })}
+            />
             {errors.email && <span>Endereço de e-mail é obrigatório</span>}
           </FormGroup>
           <FormGroup>
@@ -68,6 +69,7 @@ function Home() {
         <NextButton
           size="normal"
           alone
+          title="Continuar"
           onClick={handleSubmit(onSubmit)}
         ></NextButton>
       </FormContainer>

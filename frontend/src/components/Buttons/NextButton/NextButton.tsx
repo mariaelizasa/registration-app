@@ -1,13 +1,16 @@
+import { NextButtonProps } from "../../../@types/ButtonType";
 import { Button, ButtonContainer } from "./style";
 
-interface ButtonProps {
-  size?: "small" | "normal";
-  alone?: boolean;
-  onClick: () => void; 
-}
-const NextButton = (props: ButtonProps) => (
-  <ButtonContainer alone={props.alone}>
-    <Button size={props.size} onClick={props.onClick}>Continuar</Button>
+
+const NextButton = (props: NextButtonProps) => (
+  <ButtonContainer alone={props.alone || false}>
+    <Button
+      size={props.size}
+      onClick={props.onClick}
+      type={props.type || "button"}
+    >
+      {props.title}
+    </Button>
   </ButtonContainer>
 );
 
