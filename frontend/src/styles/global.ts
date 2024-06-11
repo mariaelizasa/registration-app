@@ -43,7 +43,10 @@ const GlobalStyle = createGlobalStyle`
     font-weight: bold;
   }
 
-
+span {
+  color: red;
+  font-size: 12px;
+}
   button {
     cursor: pointer;
     outline: none;

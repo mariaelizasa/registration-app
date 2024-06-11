@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const FormContainer = styled.div`
   width: 350px;
@@ -32,6 +34,15 @@ const Input = styled.input`
   margin-top: 5px;
   margin-bottom: 5px;
 `;
+
+const InputDatePicker = styled(DatePicker)`
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+`;
 const InputRadio = styled.input`
   margin-right: 5px;
 `;
@@ -48,4 +59,5 @@ export {
   FormContainer,
   ButtonContainer,
   InputRadio,
+  InputDatePicker
 };

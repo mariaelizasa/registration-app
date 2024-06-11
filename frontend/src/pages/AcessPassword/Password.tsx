@@ -12,8 +12,6 @@ import StepIndicator from "../../components/Step/Step";
 import { useMultiStepFormContext } from "../../context/MultiStepFormContext";
 import { FormDataPassword } from "../../@types/FormDataType";
 
-
-
 function Password() {
   const { nextStep, setFormValues, backStep, formData } =
     useMultiStepFormContext();
@@ -42,6 +40,9 @@ function Password() {
             <p>Insira sua senha</p>
             <Input
               type="password"
+              placeholder="Senha"   
+              aria-label="senha"
+              aria-required="true"
               {...register("password", { required: true })}
               defaultValue={formData.password}
             />

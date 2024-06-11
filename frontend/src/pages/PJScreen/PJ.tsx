@@ -11,10 +11,11 @@ import BackButton from "../../components/Buttons/BackButton/BackButton";
 import StepIndicator from "../../components/Step/Step";
 import { useMultiStepFormContext } from "../../context/MultiStepFormContext";
 import { FormDataPJ } from "../../@types/FormDataType";
-
+import { validateDate } from "../../utils/Validator";
 
 function PJ() {
-  const { nextStep, setFormValues, backStep, formData } = useMultiStepFormContext();
+  const { nextStep, setFormValues, backStep, formData } =
+    useMultiStepFormContext();
 
   const {
     register,
@@ -41,23 +42,35 @@ function PJ() {
             <p>Razão Social</p>
             <Input
               type="text"
+              aria-label="Razão Social"
+              aria-required="true"
+              placeholder="Ex. Meliaz Store."
               defaultValue={formData.socialReason}
-              {...register("socialReason", { required: true })}
+              {...register("socialReason", { required: true, pattern: /^[a-zA-Z ]+$/ })}
             />
-            {errors.socialReason && <span>A Razão Social é obrigatória</span>}
+             {errors.socialReason && errors.socialReason.type === "required" && (
+              <span>Razão Social é obrigatório.</span>
+            )}
+            {errors.socialReason && errors.socialReason.type === "pattern" && (
+              <span>Razão Social não deve conter números e símbolos</span>
+            )}
           </FormGroup>
 
           <FormGroup>
             <p>CNPJ</p>
             <Input
               type="text"
+              aria-label="cnpj"
+              placeholder="12345677654321"
+              aria-required="true"
               defaultValue={formData.cnpj}
               {...register("cnpj", { required: true, pattern: /^[0-9]+$/ })}
             />
-            {errors.cnpj && (
-              <span>
-                O CNPJ é obrigatório. Não pode conter letras e símbolos.{" "}
-              </span>
+            {errors.cnpj && errors.cnpj.type === "required" && (
+              <span>CNPJ é obrigatório.</span>
+            )}
+            {errors.cnpj && errors.cnpj.type === "pattern" && (
+              <span>CNPJ inválido! Não deve conter letras e símbolos.</span>
             )}
           </FormGroup>
 
@@ -65,11 +78,19 @@ function PJ() {
             <p>Data de Abertura</p>
             <Input
               type="date"
+              aria-label="data de abertura"
+              aria-required="true"
               defaultValue={formData.openingDate}
-              {...register("openingDate", { required: true })}
+              {...register("openingDate", {
+                required: true,
+                validate: validateDate,
+              })}
             />
-            {errors.openingDate && (
-              <span>A data de abertura é obrigatória</span>
+            {errors.openingDate && errors.openingDate.type === "required" && (
+              <span>Data de Abertura é obrigatório.</span>
+            )}
+            {errors.openingDate && errors.openingDate.type === "validate" && (
+              <span>Data de Abertura deve ser antes do dia atual.</span>
             )}
           </FormGroup>
 
@@ -77,14 +98,22 @@ function PJ() {
             <p>Telefone</p>
             <Input
               type="text"
+              aria-label="Telefone"
+              aria-required="true"
+              placeholder="XXXXXXXXXXX"
               defaultValue={formData.telephone}
               {...register("telephone", {
                 required: true,
-                pattern: /^[0-9]+$/,
+                pattern: /^\d{0,11}$/,
               })}
             />
-            {errors.telephone && (
-              <span>O telefone é obrigatório e deve conter apenas números</span>
+            {errors.telephone && errors.telephone.type === "required" && (
+              <span>Telefone é obrigatório.</span>
+            )}
+            {errors.telephone && errors.telephone.type === "pattern" && (
+              <span>
+                Telefone deve conter 10 a 11 dígitos e ter somente números.
+              </span>
             )}
           </FormGroup>
         </form>
@@ -92,7 +121,11 @@ function PJ() {
 
       <ButtonContainer>
         <BackButton onClick={prevStep}></BackButton>
-        <NextButton size="small" onClick={handleSubmit(onSubmit)} title="Continuar"></NextButton>
+        <NextButton
+          size="small"
+          onClick={handleSubmit(onSubmit)}
+          title="Continuar"
+        ></NextButton>
       </ButtonContainer>
     </>
   );

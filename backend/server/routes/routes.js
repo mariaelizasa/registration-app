@@ -10,8 +10,8 @@ router.get("/registration", (req, res) => {
 });
 
 router.post("/registration", (req, res) => {
-  const { email, name, cpf, telephone, password } = req.body;
-  if (!email | !name | !cpf | !telephone | !password) {
+  const { email, name, telephone, password } = req.body;
+  if (!email | !name | !telephone | !password) {
     return res
       .status(400)
       .json({ error: "Os campos obrigatórios devem ser preenchidos" });

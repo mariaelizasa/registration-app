@@ -1,5 +1,5 @@
 import Title from "../../components/Title/Title";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
   FormContainer,
   FormGroup,
@@ -13,17 +13,16 @@ import StepIndicator from "../../components/Step/Step";
 import { useMultiStepFormContext } from "../../context/MultiStepFormContext";
 import { FormDataHome } from "../../@types/FormDataType";
 
-
-
 function Home() {
   const {
     register,
     handleSubmit,
+
     formState: { errors },
   } = useForm<FormDataHome>();
 
   const { nextStep, setFormValues, formData } = useMultiStepFormContext();
-  
+
   const onSubmit = (data: FormDataHome) => {
     setFormValues(data);
     nextStep();
@@ -39,10 +38,18 @@ function Home() {
             <p>Endereço de e-mail:</p>
             <Input
               type="email"
+              placeholder="e-mail"
+              aria-label="email"
+              aria-required="true"
               defaultValue={formData.email}
-              {...register("email", { required: true })}
+              {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
             />
-            {errors.email && <span>Endereço de e-mail é obrigatório</span>}
+            {errors.email && errors.email.type === "required" && (
+              <span>Email é obrigatório.</span>
+            )}
+            {errors.email && errors.email.type === "pattern" && (
+              <span>Email inválido.</span>
+            )}
           </FormGroup>
           <FormGroup>
             <p>Selecione o tipo de cadastro:</p>
@@ -51,6 +58,8 @@ function Home() {
                 <InputRadio
                   type="radio"
                   value="PF"
+                  aria-label="Pessoa Fisica"
+                  aria-required="true"
                   {...register("type", { required: true })}
                 />
                 Pessoa Física
@@ -59,9 +68,18 @@ function Home() {
                 <InputRadio
                   type="radio"
                   value="PJ"
-                  {...register("type", { required: true })}
+                  aria-label="Pessoa Juridica"
+                  aria-required="true"
+                  {...register("type")}
                 />
                 Pessoa Jurídica
+                {errors.type && (
+                  <div>
+                    <span>
+                      Selecione uma opção!
+                    </span>
+                  </div>
+                )}
               </Label>
             </RadioGroup>
           </FormGroup>
