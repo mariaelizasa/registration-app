@@ -36,7 +36,7 @@ function PJ() {
     <>
       <FormContainer>
         <StepIndicator />
-        <Title name="Pessoa Jurídica" />
+        <Title name="Pessoa Jurídica 🤝🏽" />
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <p>Razão Social</p>

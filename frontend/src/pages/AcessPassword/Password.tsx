@@ -34,7 +34,7 @@ function Password() {
     <>
       <FormContainer>
         <StepIndicator />
-        <Title name="Senha de Acesso" />
+        <Title name="Senha de Acesso 🅰️" />
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <p>Insira sua senha</p>

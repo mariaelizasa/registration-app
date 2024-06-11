@@ -36,7 +36,7 @@ function PF() {
     <>
       <FormContainer>
         <StepIndicator />
-        <Title name="Pessoa Física" />
+        <Title name="Pessoa Física 💁‍♀️" />
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <p>Nome</p>
