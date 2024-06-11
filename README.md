@@ -1,8 +1,7 @@
 <h1 align="center">📜 Registration Form<h1/>
-  
-<p align="center">
-  <img src="https://github.com/mariaelizasa/registration-app/raw/main/assets/49694866/2c85904a-92bd-4982-a338-98ba5f9fed93.png" alt="Capturar-teste">
-</p>
+
+
+![Capturar-teste](https://github.com/mariaelizasa/registration-app/assets/49694866/29f6ab4d-d87a-4f2a-80aa-71fb805fcb23)
 
 ## Como executar / How to run
 
@@ -16,7 +15,7 @@ Crie um arquivo .env e adicione a URL da API como variável de ambiente no segui
 
 ```sh
 Create .env
-VITE_API_URL=http://localhost:PORTA
+VITE_API_URL=http://localhost:PORT
 ```
 
 Execute o projeto / Execute the project:
